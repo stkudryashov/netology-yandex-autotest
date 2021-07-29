@@ -29,8 +29,16 @@ class YaUploader:
         response = requests.put(upload_url, data=open(local_path, 'rb'))
         return response.status_code
 
+    def create_folder(self, yandex_path: str):
+        """Метод создает папку по пути yandex_path"""
+        upload_url = self.url + 'resources/'
+        headers = self.get_headers()
+        params = {'path': yandex_path}
+        response = requests.put(upload_url, headers=headers, params=params)
+        return response.status_code
+
 
 if __name__ == '__main__':
     uploader = YaUploader(api_token)
-    result = uploader.upload('Cats/cat.jpg', 'D:\Cats\cat.jpg')
+    result = uploader.create_folder('Cats')
     print(result)
